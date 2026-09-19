@@ -4,9 +4,7 @@
     box-sizing: border-box;
 }
 
-
 :root {
-
     --color-primary: #2563eb;
     --color-primary-hover: #1d4ed8;
 
@@ -17,113 +15,75 @@
     --color-text-secondary: #64748b;
 
     --color-border: #e2e8f0;
-
     --color-white: #ffffff;
 
+    --color-danger: #dc2626;
+    --color-warning: #f59e0b;
+    --color-success: #16a34a;
 }
 
-
 body {
-
     min-height: 100vh;
-
     font-family:
         Inter,
         -apple-system,
         BlinkMacSystemFont,
         "Segoe UI",
         sans-serif;
-
     background-color: var(--color-dark);
-
     color: var(--color-text);
-
 }
 
-
-.login-container {
-
+.signup-container {
     min-height: 100vh;
-
     display: grid;
-
     grid-template-columns: 55% 45%;
-
 }
 
-
-.login-visual {
-
+.signup-visual {
     position: relative;
-
     min-height: 100vh;
-
     background-color: var(--color-dark);
-
-    background-image: url("img-login-def.jfif");
-
     background-size: cover;
-
     background-position: 50% 50%;
-
     background-repeat: no-repeat;
-
     overflow: hidden;
-
+    position: sticky;
+    top: 0;
+    height: 100vh;
 }
-
 
 .visual-overlay {
-
     position: absolute;
-
     inset: 0;
-
-    background:
-        linear-gradient(
-            135deg,
-            rgba(11, 18, 32, 0.95) 0%,
-            rgba(11, 18, 32, 0.75) 45%,
-            rgba(37, 99, 235, 0.55) 100%
-        );
-
+    background: linear-gradient(
+        135deg,
+        rgba(11, 18, 32, 0.95) 0%,
+        rgba(11, 18, 32, 0.75) 45%,
+        rgba(37, 99, 235, 0.55) 100%
+    );
 }
 
-
 .visual-content {
-
     position: relative;
-
     z-index: 1;
-
     height: 100%;
-
     padding: 60px;
-
     display: flex;
-
     flex-direction: column;
-
     justify-content: space-between;
-
 }
 
 .brand {
-
     display: flex;
-
     align-items: center;
-
     gap: 14px;
-
     color: var(--color-white);
-
 }
 
-
 .brand-icon {
-    width: 65px; 
-    height: 65px; 
+    width: 65px;
+    height: 65px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -139,367 +99,217 @@ body {
     object-fit: contain;
 }
 
-
 .brand h1 {
-
     font-size: 18px;
-
     font-weight: 700;
-
     letter-spacing: 1.5px;
-
 }
 
-
 .brand span {
-
     display: block;
-
     margin-top: 3px;
-
     font-size: 11px;
-
     color: #cbd5e1;
-
     letter-spacing: 0.5px;
-
 }
 
 .visual-message {
-
     max-width: 500px;
-
     color: var(--color-white);
-
 }
-
 
 .visual-message h2 {
-
     font-size: clamp(42px, 4vw, 64px);
-
     line-height: 1.05;
-
     font-weight: 700;
-
     letter-spacing: -2px;
-
     margin-bottom: 20px;
-
 }
-
 
 .visual-message p {
-
     max-width: 450px;
-
     color: #cbd5e1;
-
     font-size: 16px;
-
     line-height: 1.7;
-
 }
 
-.login-form-section {
-
+.signup-form-section {
     min-height: 100vh;
     display: flex;
-    flex-direction: column; 
-    justify-content: space-between;
+    flex-direction: column;
+    justify-content: center;
     align-items: center;
     background-color: var(--color-white);
-    padding: 48px 40px; 
+    padding: 48px 40px;
 }
 
-
-.login-form-container {
-
+.signup-form-container {
     width: 100%;
-    max-width: 420px;
+    max-width: 440px;
     margin: auto;
-
 }
 
 .form-header {
-
-    margin-bottom: 36px;
-
+    margin-bottom: 30px;
 }
-
 
 .form-label {
-
     display: block;
-
     margin-bottom: 12px;
-
     color: var(--color-primary);
-
     font-size: 11px;
-
     font-weight: 700;
-
     letter-spacing: 1.5px;
-
 }
-
 
 .form-header h2 {
-
     margin-bottom: 10px;
-
     color: var(--color-text);
-
     font-size: 34px;
-
     line-height: 1.2;
-
     font-weight: 700;
-
     letter-spacing: -1px;
-
 }
 
-
 .form-header p {
-
     color: var(--color-text-secondary);
-
     font-size: 14px;
-
     line-height: 1.6;
+}
 
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
 }
 
 .input-group {
-
-    margin-bottom: 22px;
-
+    margin-bottom: 18px;
 }
-
 
 .input-group label {
-
     display: block;
-
     margin-bottom: 8px;
-
     color: var(--color-text);
-
     font-size: 13px;
-
     font-weight: 600;
-
 }
 
-
 .input-group input {
-
     width: 100%;
-
     height: 50px;
-
     padding: 0 15px;
-
     border: 1px solid var(--color-border);
-
     border-radius: 8px;
-
     outline: none;
-
     background-color: var(--color-white);
-
     color: var(--color-text);
-
     font-size: 14px;
-
     transition:
         border-color 0.2s ease,
         box-shadow 0.2s ease;
-
 }
-
 
 .input-group input::placeholder {
-
     color: #94a3b8;
-
 }
-
 
 .input-group input:focus {
-
     border-color: var(--color-primary);
-
-    box-shadow:
-        0 0 0 3px rgba(37, 99, 235, 0.1);
-
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
 }
 
-.password-label {
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: space-between;
-
+.input-group input.invalid {
+    border-color: var(--color-danger);
+    box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.1);
 }
-
-
-.password-label a {
-
-    color: var(--color-primary);
-
-    font-size: 12px;
-
-    font-weight: 500;
-
-    text-decoration: none;
-
-}
-
-
-.password-label a:hover {
-
-    text-decoration: underline;
-
-}
-
 
 .password-input {
-
     position: relative;
-
 }
 
-
 .password-input input {
-
     padding-right: 50px;
-
 }
 
 .password-input button {
-
     position: absolute;
-
     right: 0;
-
     top: 0;
-
     width: 50px;
-
     height: 50px;
-
     display: flex;
-
     align-items: center;
-
     justify-content: center;
-
     border: none;
-
     background: transparent;
-
     cursor: pointer;
-
     color: var(--color-text-secondary);
-
 }
-
 
 .password-input button:hover {
-
     color: var(--color-text);
-
 }
 
-.remember {
-
-    margin-top: -3px;
-
-    margin-bottom: 25px;
-
-    margin-left: 5px;
-
-}
-
-
-.remember label {
-
+.password-strength {
     display: flex;
-
     align-items: center;
+    gap: 10px;
+    margin-top: 8px;
+}
 
-    gap: 9px;
+.strength-bar {
+    flex: 1;
+    height: 5px;
+    border-radius: 999px;
+    background-color: var(--color-border);
+    overflow: hidden;
+}
 
-    cursor: pointer;
+.strength-bar span {
+    display: block;
+    width: 0;
+    height: 100%;
+    border-radius: 999px;
+    background-color: var(--color-danger);
+    transition:
+        width 0.25s ease,
+        background-color 0.25s ease;
+}
 
+#strength-text {
+    min-width: 92px;
     color: var(--color-text-secondary);
-
-    font-size: 13px;
-
+    font-size: 11px;
+    font-weight: 600;
+    text-align: right;
 }
 
-
-.remember input {
-
-    width: 15px;
-
-    height: 15px;
-
-    accent-color: var(--color-primary);
-
-}
-
-.login-button {
-
+.signup-button {
     width: 100%;
-
     height: 50px;
-
     border: none;
-
     border-radius: 8px;
-
     background-color: var(--color-primary);
-
     color: var(--color-white);
-
     font-size: 13px;
-
     font-weight: 700;
-
     letter-spacing: 0.5px;
-
     cursor: pointer;
-
     transition:
         background-color 0.2s ease,
         transform 0.2s ease,
         box-shadow 0.2s ease;
-
 }
 
-
-.login-button:hover {
-
+.signup-button:hover {
     background-color: var(--color-primary-hover);
-
     transform: translateY(-1px);
-
-    box-shadow:
-        0 8px 20px rgba(37, 99, 235, 0.25);
-
+    box-shadow: 0 8px 20px rgba(37, 99, 235, 0.25);
 }
 
-
-.login-button:active {
-
+.signup-button:active {
     transform: translateY(0);
-
 }
 
 .form-switch {
@@ -520,10 +330,8 @@ body {
 }
 
 .form-footer {
-
     width: 100%;
-    max-width: 420px;
-    margin-top: 20px;
+    margin-top: 24px;
     padding-top: 20px;
     border-top: 1px solid var(--color-border);
     display: flex;
@@ -532,47 +340,33 @@ body {
     color: #94a3b8;
     font-size: 11px;
     text-align: left;
-
 }
 
 @media (max-width: 900px) {
-
-    .login-container {
-
+    .signup-container {
         grid-template-columns: 1fr;
-
     }
 
-
-    .login-visual {
-
+    .signup-visual {
         display: none;
-
     }
 
-
-    .login-form-section {
-
+    .signup-form-section {
         padding: 30px;
-
     }
-
 }
 
-
 @media (max-width: 480px) {
-
-    .login-form-section {
-
+    .signup-form-section {
         padding: 24px;
-
     }
-
 
     .form-header h2 {
-
         font-size: 28px;
-
     }
 
+    .form-row {
+        grid-template-columns: 1fr;
+        gap: 0;
+    }
 }

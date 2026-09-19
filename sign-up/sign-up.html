@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>SecureControl - Criar conta</title>
+
+    <link rel="icon" href="../icons/favicon.png" type="image/png" />
+    <link rel="stylesheet" href="sign-up.css" />
+  </head>
+
+  <body>
+    <main class="signup-container">
+      <section class="signup-visual">
+        <div class="visual-overlay"></div>
+
+        <div class="visual-content">
+          <div class="brand">
+            <div class="brand-icon">
+              <img src="../icons/cam-aperture.png" alt="brand_icon" />
+            </div>
+
+            <div>
+              <h1>SECURECONTROL</h1>
+              <span> Security Monitoring Platform </span>
+            </div>
+          </div>
+
+          <div class="visual-message">
+            <h2>
+              texto<br />
+              sobre segurança.
+            </h2>
+
+            <p>
+              Crie sua conta e comece a monitorar dispositivos, alertas e
+              incidentes em um único lugar.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="signup-form-section">
+        <div class="signup-form-container">
+          <div class="form-header">
+            <span class="form-label"> CENTRAL DE SEGURANÇA </span>
+
+            <h2>Criar conta</h2>
+
+            <p>
+              Preencha seus dados para solicitar acesso ao sistema de
+              monitoramento.
+            </p>
+          </div>
+
+          <form id="signup-form">
+            <div class="form-row">
+              <div class="input-group">
+                <label for="first-name"> Nome </label>
+
+                <input
+                  type="text"
+                  id="first-name"
+                  name="first-name"
+                  placeholder="Seu nome"
+                  autocomplete="given-name"
+                  required
+                />
+              </div>
+
+              <div class="input-group">
+                <label for="last-name"> Sobrenome </label>
+
+                <input
+                  type="text"
+                  id="last-name"
+                  name="last-name"
+                  placeholder="Seu sobrenome"
+                  autocomplete="family-name"
+                  required
+                />
+              </div>
+            </div>
+
+            <div class="input-group">
+              <label for="email"> E-mail corporativo </label>
+
+              <input
+                type="email"
+                id="email"
+                name="email"
+                placeholder="seu.email@gmail.com"
+                autocomplete="email"
+                required
+              />
+            </div>
+
+            <div class="input-group">
+              <label for="company"> Empresa </label>
+
+              <input
+                type="text"
+                id="company"
+                name="company"
+                placeholder="Nome da empresa"
+                autocomplete="organization"
+                required
+              />
+            </div>
+
+            <div class="input-group">
+              <label for="password"> Senha </label>
+
+              <div class="password-input">
+                <input
+                  type="password"
+                  id="password"
+                  name="password"
+                  placeholder="Mínimo de 8 caracteres"
+                  autocomplete="new-password"
+                  required
+                />
+
+                <button
+                  type="button"
+                  class="toggle-password"
+                  data-target="password"
+                  aria-label="Mostrar senha"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <path
+                      d="M2.06 12.35a1 1 0 0 1 0-.7C3.48 7.94 7.47 5 12 5c4.53 0 8.52 2.94 9.94 6.65a1 1 0 0 1 0 .7C20.52 16.06 16.53 19 12 19c-4.53 0-8.52-2.94-9.94-6.65Z"
+                    />
+
+                    <circle cx="12" cy="12" r="3" />
+                  </svg>
+                </button>
+              </div>
+
+              <div class="password-strength">
+                <div class="strength-bar">
+                  <span id="strength-fill"></span>
+                </div>
+
+                <span id="strength-text"> Força da senha </span>
+              </div>
+            </div>
+
+            <div class="input-group">
+              <label for="confirm-password"> Confirmar senha </label>
+
+              <div class="password-input">
+                <input
+                  type="password"
+                  id="confirm-password"
+                  name="confirm-password"
+                  placeholder="Repita a senha"
+                  autocomplete="new-password"
+                  required
+                />
+
+                <button
+                  type="button"
+                  class="toggle-password"
+                  data-target="confirm-password"
+                  aria-label="Mostrar senha"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <path
+                      d="M2.06 12.35a1 1 0 0 1 0-.7C3.48 7.94 7.47 5 12 5c4.53 0 8.52 2.94 9.94 6.65a1 1 0 0 1 0 .7C20.52 16.06 16.53 19 12 19c-4.53 0-8.52-2.94-9.94-6.65Z"
+                    />
+
+                    <circle cx="12" cy="12" r="3" />
+                  </svg>
+                </button>
+              </div>
+            </div>
+
+            <button type="submit" class="signup-button">Criar conta</button>
+          </form>
+
+          <div class="form-switch">
+            <span>
+              Já tem uma conta?
+              <a href="../login/login.html"> Entrar</a>
+            </span>
+          </div>
+
+          <div class="form-footer">
+            <span> SecureControl - Enryco Guimarães Bauer © 2026 </span>
+            <span> Sistema de Gestão e Monitoramento </span>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script src="sign-up.js"></script>
+  </body>
+</html>
