@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>SecureControl - Login</title>
+
+    <link rel="stylesheet" href="login.css" />
+  </head>
+
+  <body>
+    <main class="login-container">
+
+      <section class="login-visual">
+
+        <div class="visual-overlay"></div>
+
+        <div class="visual-content">
+
+          <div class="brand">
+
+            <div class="brand-icon">
+              SC
+            </div>
+
+            <div>
+              <h1>SECURECONTROL</h1>
+
+              <span>
+                Security Monitoring Platform
+              </span>
+            </div>
+
+          </div>
+
+
+          <div class="visual-message">
+
+            <h2>
+              texto<br />
+              sobre segurança.
+            </h2>
+
+            <p>
+              Monitoramento centralizado de dispositivos,
+              alertas e incidentes em tempo real.
+            </p>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <section class="login-form-section">
+
+        <div class="login-form-container">
+
+          <div class="form-header">
+
+            <span class="form-label">
+              CENTRAL DE SEGURANÇA
+            </span>
+
+            <h2>
+              Acessar central
+            </h2>
+
+            <p>
+              Entre com suas credenciais para acessar
+              o sistema de monitoramento.
+            </p>
+
+          </div>
+
+
+          <form id="login-form">
+
+            <div class="input-group">
+
+              <label for="email">
+                E-mail
+              </label>
+
+              <input
+                type="email"
+                id="email"
+                name="email"
+                placeholder="seu.email@empresa.com"
+                autocomplete="email"
+                required
+              />
+
+            </div>
+
+            <div class="input-group">
+
+              <div class="password-label">
+
+                <label for="password">
+                  Senha
+                </label>
+
+                <a href="#">
+                  Esqueci minha senha
+                </a>
+
+              </div>
+
+
+              <div class="password-input">
+
+                <input
+                  type="password"
+                  id="password"
+                  name="password"
+                  placeholder="Digite sua senha"
+                  autocomplete="current-password"
+                  required
+                />
+
+
+                <button
+                  type="button"
+                  id="toggle-password"
+                  aria-label="Mostrar senha"
+                >
+
+                  <svg
+                    id="eye-icon"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+
+                    <path
+                      d="M2.06 12.35a1 1 0 0 1 0-.7C3.48 7.94 7.47 5 12 5c4.53 0 8.52 2.94 9.94 6.65a1 1 0 0 1 0 .7C20.52 16.06 16.53 19 12 19c-4.53 0-8.52-2.94-9.94-6.65Z"
+                    />
+
+                    <circle
+                      cx="12"
+                      cy="12"
+                      r="3"
+                    />
+
+                  </svg>
+
+                </button>
+
+              </div>
+
+            </div>
+
+            <div class="remember">
+
+              <label>
+
+                <input
+                  type="checkbox"
+                  id="remember"
+                />
+
+                <span>
+                  Lembrar de mim
+                </span>
+
+              </label>
+
+            </div>
+
+            <button
+              type="submit"
+              class="login-button"
+            >
+              Entrar na central
+            </button>
+
+          </form>
+
+
+          <div class="form-footer">
+
+            <span>
+              SecureControl - Enryco Guimarães Bauer © 2026
+            </span>
+
+            <span>
+              Sistema de Gestão e Monitoramento
+            </span>
+
+          </div>
+
+        </div>
+
+      </section>
+
+    </main>
+
+
+    <script src="login.js"></script>
+
+  </body>
+</html>
