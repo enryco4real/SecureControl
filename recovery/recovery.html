@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SecureControl - Recuperação de Senha</title>
+
+    <link rel="icon" href="" type="image/png">
+    <link rel="stylesheet" href="recovery.css" />
+  </head>
+  
+  <body>
+    <main class="login-container">
+      <section class="login-visual">
+        <div class="visual-overlay"></div>
+        <div class="visual-content">
+          <div class="brand">
+            <div class="brand-icon">
+              <img src="../icons/cam-aperture.png" alt="brand_icon" />
+            </div>
+            <div>
+              <h1>SECURECONTROL</h1>
+              <span> Security Monitoring Platform </span>
+            </div>
+          </div>
+
+          <div class="visual-message">
+            <h2>
+              texto<br />
+              sobre segurança.
+            </h2>
+            <p>
+              Monitoramento centralizado de dispositivos, alertas e incidentes
+              em tempo real.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="login-form-section">
+        <div class="login-form-container">
+          <div class="form-header">
+            <span class="form-label"> CENTRAL DE SEGURANÇA </span>
+            <h2>Recuperação de senha</h2>
+            <p>
+              Digite o seu e-mail cadastrado. Enviaremos um código de
+              verificação para prosseguir.
+            </p>
+          </div>
+
+          <form id="recovery-form" action="reset-password.html" method="GET">
+            <div class="input-group">
+              <label for="email"> E-mail </label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                placeholder="seu.email@empresa.com"
+                autocomplete="email"
+                required
+              />
+            </div>
+
+            <button type="submit" class="login-button">
+              Enviar código de recuperação
+            </button>
+
+            <div
+              class="back-to-login"
+              style="margin-top: 16px; text-align: center"
+            >
+              <a
+                href="../login/login.html"
+                style="
+                  color: var(--color-primary);
+                  font-size: 13px;
+                  font-weight: 600;
+                  text-decoration: none;
+                "
+              >
+                Voltar
+              </a>
+            </div>
+          </form>
+        </div>
+
+        <div class="form-footer">
+          <span> SecureControl - Enryco Guimarães Bauer © 2026 </span>
+          <span> Sistema de Gestão e Monitoramento </span>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>
