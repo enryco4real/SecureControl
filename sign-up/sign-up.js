@@ -1,3 +1,48 @@
+const typeCards = document.querySelectorAll(".type-card");
+const conditionalBlocks = document.querySelectorAll(".conditional-fields");
+const accountTypeInput = document.getElementById("account-type");
+const emailLabel = document.getElementById("email-label");
+const emailInput = document.getElementById("email");
+
+const EMAIL_TEXT = {
+  business: {
+    label: "E-mail corporativo",
+    placeholder: "seu.email@empresa.com",
+  },
+  residential: {
+    label: "E-mail",
+    placeholder: "seu.email@gmail.com",
+  },
+};
+
+typeCards.forEach((card) => {
+  card.addEventListener("click", () => {
+    const type = card.dataset.type;
+
+    typeCards.forEach((c) => {
+      c.classList.toggle("active", c === card);
+      c.querySelector("input").checked = c === card;
+    });
+
+    conditionalBlocks.forEach((block) => {
+      const isMatch = block.dataset.for === type;
+      block.hidden = !isMatch;
+
+      // turn on/off required if block being visible
+      block.querySelectorAll("input").forEach((input) => {
+        input.required = isMatch;
+      });
+    });
+
+    accountTypeInput.value = type;
+
+    // swap email label/placeholder between corporate and personal
+    const text = EMAIL_TEXT[type];
+    emailLabel.textContent = text.label;
+    emailInput.placeholder = text.placeholder;
+  });
+});
+
 const form = document.getElementById("signup-form");
 const password = document.getElementById("password");
 const strengthFill = document.getElementById("strength-fill");
@@ -58,8 +103,20 @@ form.addEventListener("submit", (event) => {
   const data = {
     firstName: document.getElementById("first-name").value.trim(),
     lastName: document.getElementById("last-name").value.trim(),
-    email: document.getElementById("email").value.trim(),
-    company: document.getElementById("company").value.trim(),
+    email: emailInput.value.trim(),
+    accountType: accountTypeInput.value,
+    company: document.getElementById("company")?.value.trim() || null,
+    cnpj: document.getElementById("cnpj")?.value.trim() || null,
+    address:
+      accountTypeInput.value === "residential"
+        ? {
+            cep: document.getElementById("cep").value.trim(),
+            number: document.getElementById("number").value.trim(),
+            street: document.getElementById("street").value.trim(),
+            neighborhood: document.getElementById("neighborhood").value.trim(),
+            city: document.getElementById("city").value.trim(),
+          }
+        : null,
     password: password.value,
     confirmPassword: document.getElementById("confirm-password").value,
   };

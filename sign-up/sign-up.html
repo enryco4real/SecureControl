@@ -54,6 +54,45 @@
             </p>
           </div>
 
+          <div class="account-type-selector">
+            <label class="type-card active" data-type="business">
+              <input type="radio" name="account-type-radio" value="business" checked />
+
+              <span class="type-card-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z" />
+                  <path d="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2" />
+                  <path d="M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2" />
+                  <path d="M10 6h4" />
+                  <path d="M10 10h4" />
+                  <path d="M10 14h4" />
+                  <path d="M10 18h4" />
+                </svg>
+              </span>
+
+              <span class="type-card-text">
+                <span class="type-card-title">Empresa</span>
+                <span class="type-card-desc">Monitoramento corporativo</span>
+              </span>
+            </label>
+
+            <label class="type-card" data-type="residential">
+              <input type="radio" name="account-type-radio" value="residential" />
+
+              <span class="type-card-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2Z" />
+                  <path d="M9 22V12h6v10" />
+                </svg>
+              </span>
+
+              <span class="type-card-text">
+                <span class="type-card-title">Residencial</span>
+                <span class="type-card-desc">Monitoramento da sua casa</span>
+              </span>
+            </label>
+          </div>
+
           <form id="signup-form">
             <div class="form-row">
               <div class="input-group">
@@ -84,30 +123,105 @@
             </div>
 
             <div class="input-group">
-              <label for="email"> E-mail corporativo </label>
+              <label for="email" id="email-label"> E-mail corporativo </label>
 
               <input
                 type="email"
                 id="email"
                 name="email"
-                placeholder="seu.email@gmail.com"
+                placeholder="seu.email@empresa.com"
                 autocomplete="email"
                 required
               />
             </div>
 
-            <div class="input-group">
-              <label for="company"> Empresa </label>
+            <!-- campos exclusivos de EMPRESA -->
+            <div class="conditional-fields" data-for="business">
+              <div class="input-group">
+                <label for="company">Empresa</label>
+                <input
+                  type="text"
+                  id="company"
+                  name="company"
+                  placeholder="Nome da empresa"
+                  autocomplete="organization"
+                />
+              </div>
 
-              <input
-                type="text"
-                id="company"
-                name="company"
-                placeholder="Nome da empresa"
-                autocomplete="organization"
-                required
-              />
+              <div class="input-group">
+                <label for="cnpj">CNPJ</label>
+                <input
+                  type="text"
+                  id="cnpj"
+                  name="cnpj"
+                  placeholder="00.000.000/0000-00"
+                />
+              </div>
             </div>
+
+            <!-- campos exclusivos de RESIDENCIAL -->
+            <div class="conditional-fields" data-for="residential" hidden>
+              <div class="form-row">
+                <div class="input-group">
+                  <label for="cep">CEP</label>
+                  <input
+                    type="text"
+                    id="cep"
+                    name="cep"
+                    placeholder="00000-000"
+                  />
+                </div>
+
+                <div class="input-group">
+                  <label for="number">Número</label>
+                  <input
+                    type="text"
+                    id="number"
+                    name="number"
+                    placeholder="Nº"
+                  />
+                </div>
+              </div>
+
+              <div class="input-group">
+                <label for="street">Endereço</label>
+                <input
+                  type="text"
+                  id="street"
+                  name="street"
+                  placeholder="Rua / Avenida"
+                />
+              </div>
+
+              <div class="form-row">
+                <div class="input-group">
+                  <label for="neighborhood">Bairro</label>
+                  <input
+                    type="text"
+                    id="neighborhood"
+                    name="neighborhood"
+                    placeholder="Bairro"
+                  />
+                </div>
+
+                <div class="input-group">
+                  <label for="city">Cidade</label>
+                  <input
+                    type="text"
+                    id="city"
+                    name="city"
+                    placeholder="Cidade"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <input
+              type="hidden"
+              id="account-type"
+              name="account-type"
+              value="business"
+            />
 
             <div class="input-group">
               <label for="password"> Senha </label>
