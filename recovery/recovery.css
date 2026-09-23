@@ -20,6 +20,9 @@
 
     --color-white: #ffffff;
 
+    --color-danger: #dc2626;
+    --color-success: #16a34a;
+
 }
 
 
@@ -336,6 +339,16 @@ body {
 
 }
 
+
+.input-group input.invalid {
+
+    border-color: var(--color-danger);
+
+    box-shadow:
+        0 0 0 3px rgba(220, 38, 38, 0.1);
+
+}
+
 .password-label {
 
     display: flex;
@@ -453,6 +466,44 @@ body {
 
 }
 
+.form-message {
+
+    display: none;
+
+    margin-bottom: 14px;
+
+    padding: 10px 12px;
+
+    border-radius: 8px;
+
+    font-size: 12.5px;
+
+    font-weight: 500;
+
+}
+
+
+.form-message.error {
+
+    display: block;
+
+    background-color: rgba(220, 38, 38, 0.08);
+
+    color: var(--color-danger);
+
+}
+
+
+.form-message.success {
+
+    display: block;
+
+    background-color: rgba(22, 163, 74, 0.08);
+
+    color: var(--color-success);
+
+}
+
 .login-button {
 
     width: 100%;
@@ -498,6 +549,17 @@ body {
 .login-button:active {
 
     transform: translateY(0);
+
+}
+
+
+.login-button:disabled {
+
+    opacity: 0.7;
+
+    cursor: not-allowed;
+
+    transform: none !important;
 
 }
 
