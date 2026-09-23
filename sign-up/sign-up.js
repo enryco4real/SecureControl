@@ -1,3 +1,12 @@
+import { auth, db } from "../shared/firebaseConfig.js";
+import {
+  createUserWithEmailAndPassword,
+} from "https://www.gstatic.com/firebasejs/10.13.0/firebase-auth.js";
+import {
+  doc,
+  setDoc,
+} from "https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore.js";
+
 const typeCards = document.querySelectorAll(".type-card");
 const conditionalBlocks = document.querySelectorAll(".conditional-fields");
 const accountTypeInput = document.getElementById("account-type");
@@ -47,6 +56,7 @@ const form = document.getElementById("signup-form");
 const password = document.getElementById("password");
 const strengthFill = document.getElementById("strength-fill");
 const strengthText = document.getElementById("strength-text");
+const signupButton = document.querySelector(".signup-button");
 
 const EYE_OPEN = `<path d="M2.06 12.35a1 1 0 0 1 0-.7C3.48 7.94 7.47 5 12 5c4.53 0 8.52 2.94 9.94 6.65a1 1 0 0 1 0 .7C20.52 16.06 16.53 19 12 19c-4.53 0-8.52-2.94-9.94-6.65Z"/><circle cx="12" cy="12" r="3"/>`;
 
@@ -96,9 +106,50 @@ password.addEventListener("input", () => {
   strengthText.textContent = level.text;
 });
 
-// db validation on future
+// error messages (reusing the pattern from recovery)
+function showError(message) {
+  let messageEl = document.getElementById("form-message");
+
+  if (!messageEl) {
+    messageEl = document.createElement("span");
+    messageEl.id = "form-message";
+    form.insertBefore(messageEl, signupButton);
+  }
+
+  messageEl.textContent = message;
+  messageEl.className = "form-message error";
+}
+
+function clearError() {
+  const messageEl = document.getElementById("form-message");
+  if (messageEl) messageEl.className = "form-message";
+}
+
+// translate Firebase error codes to readable messages
+function translateFirebaseError(code) {
+  switch (code) {
+    case "auth/email-already-in-use":
+      return "Este e-mail já está cadastrado.";
+    case "auth/invalid-email":
+      return "E-mail inválido.";
+    case "auth/weak-password":
+      return "A senha precisa ter no mínimo 6 caracteres.";
+    default:
+      return "Não foi possível criar a conta. Tente novamente.";
+  }
+}
+
+// real registration via firebase auth + firestore
 form.addEventListener("submit", (event) => {
   event.preventDefault();
+  clearError();
+
+  const confirmPassword = document.getElementById("confirm-password").value;
+
+  if (password.value !== confirmPassword) {
+    showError("As senhas não coincidem.");
+    return;
+  }
 
   const data = {
     firstName: document.getElementById("first-name").value.trim(),
@@ -117,9 +168,23 @@ form.addEventListener("submit", (event) => {
             city: document.getElementById("city").value.trim(),
           }
         : null,
-    password: password.value,
-    confirmPassword: document.getElementById("confirm-password").value,
   };
 
-  console.log("Dados do cadastro:", data);
+  // loading state
+  signupButton.disabled = true;
+  signupButton.textContent = "Criando conta...";
+
+  createUserWithEmailAndPassword(auth, data.email, password.value)
+    .then((userCredential) => {
+      const uid = userCredential.user.uid;
+      return setDoc(doc(db, "users", uid), data);
+    })
+    .then(() => {
+      window.location.href = "../login/login.html";
+    })
+    .catch((error) => {
+      showError(translateFirebaseError(error.code));
+      signupButton.disabled = false;
+      signupButton.textContent = "Criar conta";
+    });
 });
