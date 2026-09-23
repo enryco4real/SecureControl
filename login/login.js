@@ -1,5 +1,10 @@
 import { auth } from "../shared/firebaseConfig.js";
-import { signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-auth.js";
+import {
+  signInWithEmailAndPassword,
+  setPersistence,
+  browserLocalPersistence,
+  browserSessionPersistence,
+} from "https://www.gstatic.com/firebasejs/10.13.0/firebase-auth.js";
 
 const EYE_OPEN = `<path d="M2.06 12.35a1 1 0 0 1 0-.7C3.48 7.94 7.47 5 12 5c4.53 0 8.52 2.94 9.94 6.65a1 1 0 0 1 0 .7C20.52 16.06 16.53 19 12 19c-4.53 0-8.52-2.94-9.94-6.65Z"/><circle cx="12" cy="12" r="3"/>`;
 
@@ -23,6 +28,7 @@ toggleButton.addEventListener("click", () => {
 
 const form = document.getElementById("login-form");
 const emailInput = document.getElementById("email");
+const rememberCheckbox = document.getElementById("remember");
 const loginButton = document.querySelector(".login-button");
 
 function showError(message) {
@@ -66,11 +72,19 @@ form.addEventListener("submit", (event) => {
 
   const email = emailInput.value.trim();
   const password = passwordInput.value;
+  const rememberMe = rememberCheckbox.checked;
 
   loginButton.disabled = true;
   loginButton.textContent = "Entrando...";
 
-  signInWithEmailAndPassword(auth, email, password)
+  // remember me controls how long the session persists
+  // if is checked, survives closing the browser but if is unchecked it ends when the tab or browser is closed
+  const persistence = rememberMe
+    ? browserLocalPersistence
+    : browserSessionPersistence;
+
+  setPersistence(auth, persistence)
+    .then(() => signInWithEmailAndPassword(auth, email, password))
     .then(() => {
       window.location.href = "../dashboard/dashboard.html";
     })
