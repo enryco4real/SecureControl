@@ -62,6 +62,21 @@ const EYE_OPEN = `<path d="M2.06 12.35a1 1 0 0 1 0-.7C3.48 7.94 7.47 5 12 5c4.53
 
 const EYE_OFF = `<path d="M10.73 5.08A10.43 10.43 0 0 1 12 5c4.53 0 8.52 2.94 9.94 6.65a1 1 0 0 1 0 .7 11.8 11.8 0 0 1-2.17 3.4"/><path d="M6.61 6.61A11.9 11.9 0 0 0 2.06 11.65a1 1 0 0 0 0 .7C3.48 16.06 7.47 19 12 19a10.6 10.6 0 0 0 5.39-1.39"/><path d="m2 2 20 20"/><path d="M9.9 9.9a3 3 0 0 0 4.2 4.2"/>`;
 
+
+// format the ZIP code in the pattern 00000-000 while the user types
+const cepInput = document.getElementById("cep");
+
+cepInput.addEventListener("input", () => {
+  let value = cepInput.value.replace(/\D/g, ""); // removes everything that is not number
+  value = value.slice(0, 8); // limits to 8 digits
+
+  if (value.length > 5) {
+    value = `${value.slice(0, 5)}-${value.slice(5)}`;
+  }
+
+  cepInput.value = value;
+});
+
 // hide / show password
 document.querySelectorAll(".toggle-password").forEach((button) => {
   button.addEventListener("click", () => {
@@ -104,6 +119,22 @@ password.addEventListener("input", () => {
   strengthFill.style.width = level.width;
   strengthFill.style.backgroundColor = level.color;
   strengthText.textContent = level.text;
+});
+
+// prevents spaces in password fields
+[password, document.getElementById("confirm-password")].forEach((input) => {
+  input.addEventListener("keydown", (event) => {
+    if (event.key === " ") {
+      event.preventDefault();
+    }
+  });
+
+  input.addEventListener("paste", (event) => {
+    const pastedText = event.clipboardData.getData("text");
+    if (/\s/.test(pastedText)) {
+      event.preventDefault();
+    }
+  });
 });
 
 // error messages (reusing the pattern from recovery)

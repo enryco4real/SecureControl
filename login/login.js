@@ -1,30 +1,82 @@
+import { auth } from "../shared/firebaseConfig.js";
+import { signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-auth.js";
+
+const EYE_OPEN = `<path d="M2.06 12.35a1 1 0 0 1 0-.7C3.48 7.94 7.47 5 12 5c4.53 0 8.52 2.94 9.94 6.65a1 1 0 0 1 0 .7C20.52 16.06 16.53 19 12 19c-4.53 0-8.52-2.94-9.94-6.65Z"/><circle cx="12" cy="12" r="3"/>`;
+
+const EYE_OFF = `<path d="M10.73 5.08A10.43 10.43 0 0 1 12 5c4.53 0 8.52 2.94 9.94 6.65a1 1 0 0 1 0 .7 11.8 11.8 0 0 1-2.17 3.4"/><path d="M6.61 6.61A11.9 11.9 0 0 0 2.06 11.65a1 1 0 0 0 0 .7C3.48 16.06 7.47 19 12 19a10.6 10.6 0 0 0 5.39-1.39"/><path d="m2 2 20 20"/><path d="M9.9 9.9a3 3 0 0 0 4.2 4.2"/>`;
+
+// hide / show password
+const toggleButton = document.getElementById("toggle-password");
 const passwordInput = document.getElementById("password");
-const togglePassword = document.getElementById("toggle-password");
 const eyeIcon = document.getElementById("eye-icon");
 
-togglePassword.addEventListener("click", () => {
-    if (passwordInput.type === "password") {
+toggleButton.addEventListener("click", () => {
+  const isHidden = passwordInput.type === "password";
 
-        passwordInput.type = "text";
+  passwordInput.type = isHidden ? "text" : "password";
+  eyeIcon.innerHTML = isHidden ? EYE_OFF : EYE_OPEN;
+  toggleButton.setAttribute(
+    "aria-label",
+    isHidden ? "Ocultar senha" : "Mostrar senha",
+  );
+});
 
-        togglePassword.setAttribute("aria-label", "Ocultar senha");
+const form = document.getElementById("login-form");
+const emailInput = document.getElementById("email");
+const loginButton = document.querySelector(".login-button");
 
-        eyeIcon.innerHTML = `
-            <path d="M3 3l18 18"/>
-            <path d="M10.58 10.58a2 2 0 0 0 2.83 2.83"/>
-            <path d="M9.88 4.24A9.77 9.77 0 0 1 12 4c4.52 0 8.51 2.94 9.93 6.65a1 1 0 0 1 0 .7 10.02 10.02 0 0 1-4.11 4.87"/>
-            <path d="M6.61 6.61A10.02 10.02 0 0 0 2.07 11.3a1 1 0 0 0 0 .7C3.49 15.71 7.48 18.65 12 18.65a9.77 9.77 0 0 0 2.12-.24"/>
-        `;
-    
-    } else {
+function showError(message) {
+  let messageEl = document.getElementById("form-message");
 
-        passwordInput.type = "password";
+  if (!messageEl) {
+    messageEl = document.createElement("span");
+    messageEl.id = "form-message";
+    form.insertBefore(messageEl, loginButton);
+  }
 
-        togglePassword.setAttribute("aria-label", "Mostrar senha");
+  messageEl.textContent = message;
+  messageEl.className = "form-message error";
+}
 
-        eyeIcon.innerHTML = `
-            <path d="M2.06 12.35a1 1 0 0 1 0-.7C3.48 7.94 7.47 5 12 5c4.53 0 8.52 2.94 9.94 6.65a1 1 0 0 1 0 .7C20.52 16.06 16.53 19 12 19c-4.53 0-8.52-2.94-9.94-6.65Z"/>
-            <circle cx="12" cy="12" r="3"/>
-        `;
-    }
+function clearError() {
+  const messageEl = document.getElementById("form-message");
+  if (messageEl) messageEl.className = "form-message";
+}
+
+// translate firebase auth error codes to user messages
+function translateFirebaseError(code) {
+  switch (code) {
+    case "auth/invalid-email":
+      return "E-mail inválido.";
+    case "auth/user-disabled":
+      return "Esta conta foi desativada.";
+    case "auth/invalid-credential":
+    case "auth/wrong-password":
+    case "auth/user-not-found":
+      return "E-mail ou senha incorretos.";
+    default:
+      return "Não foi possível entrar. Tente novamente.";
+  }
+}
+
+// real login via firebase auth
+form.addEventListener("submit", (event) => {
+  event.preventDefault();
+  clearError();
+
+  const email = emailInput.value.trim();
+  const password = passwordInput.value;
+
+  loginButton.disabled = true;
+  loginButton.textContent = "Entrando...";
+
+  signInWithEmailAndPassword(auth, email, password)
+    .then(() => {
+      window.location.href = "../dashboard/dashboard.html";
+    })
+    .catch((error) => {
+      showError(translateFirebaseError(error.code));
+      loginButton.disabled = false;
+      loginButton.textContent = "Entrar na central";
+    });
 });
