@@ -7,6 +7,7 @@ import {
   setDoc,
 } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore.js";
 
+// card selection for account type (business or residential)
 const typeCards = document.querySelectorAll(".type-card");
 const conditionalBlocks = document.querySelectorAll(".conditional-fields");
 const accountTypeInput = document.getElementById("account-type");

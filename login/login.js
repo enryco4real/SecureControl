@@ -77,8 +77,8 @@ form.addEventListener("submit", (event) => {
   loginButton.disabled = true;
   loginButton.textContent = "Entrando...";
 
-  // remember me controls how long the session persists
-  // if is checked, survives closing the browser but if is unchecked it ends when the tab or browser is closed
+  /* remember me controls how long the session persists
+  if is checked, survives closing the browser but if is unchecked it ends when the tab or browser is closed */
   const persistence = rememberMe
     ? browserLocalPersistence
     : browserSessionPersistence;
