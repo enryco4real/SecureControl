@@ -63,6 +63,22 @@ const EYE_OPEN = `<path d="M2.06 12.35a1 1 0 0 1 0-.7C3.48 7.94 7.47 5 12 5c4.53
 
 const EYE_OFF = `<path d="M10.73 5.08A10.43 10.43 0 0 1 12 5c4.53 0 8.52 2.94 9.94 6.65a1 1 0 0 1 0 .7 11.8 11.8 0 0 1-2.17 3.4"/><path d="M6.61 6.61A11.9 11.9 0 0 0 2.06 11.65a1 1 0 0 0 0 .7C3.48 16.06 7.47 19 12 19a10.6 10.6 0 0 0 5.39-1.39"/><path d="m2 2 20 20"/><path d="M9.9 9.9a3 3 0 0 0 4.2 4.2"/>`;
 
+// format the CNPJ in the pattern 00.000.000/0000-00 while the user types
+const cnpjInput = document.getElementById("cnpj");
+
+cnpjInput.addEventListener("input", () => {
+  let value = cnpjInput.value.replace(/\D/g, ""); // removes everything that is not number
+  value = value.slice(0, 14); // limits to 14 digits
+
+  value = value
+    .replace(/^(\d{2})(\d)/, "$1.$2")
+    .replace(/^(\d{2})\.(\d{3})(\d)/, "$1.$2.$3")
+    .replace(/\.(\d{3})(\d)/, ".$1/$2")
+    .replace(/(\d{4})(\d)/, "$1-$2");
+
+  cnpjInput.value = value;
+});
+
 
 // format the ZIP code in the pattern 00000-000 while the user types
 const cepInput = document.getElementById("cep");

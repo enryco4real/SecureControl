@@ -1,14 +1,58 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>SecureControl - Dashboard</title>
+
     <link rel="icon" href="../icons/favicon.png" type="image/png" />
     <link rel="stylesheet" href="dashboard.css" />
-    <h1>Dashboard test</h1>
-</head>
-<body>
-    
-</body>
+  </head>
+
+  <body>
+    <header class="dashboard-header">
+      <div class="brand">
+        <div class="brand-icon">
+          <img src="../icons/cam-aperture.png" alt="brand_icon" />
+        </div>
+
+        <div>
+          <h1>SECURECONTROL</h1>
+          <span> Security Monitoring Platform </span>
+        </div>
+      </div>
+
+       <div class="header-actions">
+        <span id="user-email" class="user-email"></span>
+
+        <div class="settings-wrapper">
+          <button id="settings-button" class="settings-button" aria-label="Configurações" aria-expanded="false">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="3" />
+              <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1Z" />
+            </svg>
+          </button>
+
+          <div id="settings-menu" class="settings-menu" hidden>      
+            <button id="logout-button" class="settings-menu-item">
+              Sair
+            </button>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main class="dashboard-content">
+      <div class="welcome-card">
+        <span class="form-label"> CENTRAL DE SEGURANÇA </span>
+        <h2>Bem-vindo(a) de volta</h2>
+        <p>
+          Este é um painel provisório. O monitoramento de dispositivos e
+          alertas vai ser aqui eu acho.
+        </p>
+      </div>
+    </main>
+
+    <script type="module" src="dashboard.js"></script>
+  </body>
 </html>
