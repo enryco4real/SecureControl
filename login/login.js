@@ -4,6 +4,8 @@ import {
   setPersistence,
   browserLocalPersistence,
   browserSessionPersistence,
+  sendEmailVerification,
+  signOut,
 } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-auth.js";
 
 const EYE_OPEN = `<path d="M2.06 12.35a1 1 0 0 1 0-.7C3.48 7.94 7.47 5 12 5c4.53 0 8.52 2.94 9.94 6.65a1 1 0 0 1 0 .7C20.52 16.06 16.53 19 12 19c-4.53 0-8.52-2.94-9.94-6.65Z"/><circle cx="12" cy="12" r="3"/>`;
@@ -31,7 +33,7 @@ const emailInput = document.getElementById("email");
 const rememberCheckbox = document.getElementById("remember");
 const loginButton = document.querySelector(".login-button");
 
-function showError(message) {
+function showMessage(text, type) {
   let messageEl = document.getElementById("form-message");
 
   if (!messageEl) {
@@ -40,13 +42,22 @@ function showError(message) {
     form.insertBefore(messageEl, loginButton);
   }
 
-  messageEl.textContent = message;
-  messageEl.className = "form-message error";
+  messageEl.textContent = text;
+  messageEl.className = `form-message ${type}`;
 }
 
-function clearError() {
+function clearMessage() {
   const messageEl = document.getElementById("form-message");
   if (messageEl) messageEl.className = "form-message";
+}
+
+// shows a message if coming from sign-up (?verify=1 in the URL)
+const params = new URLSearchParams(window.location.search);
+if (params.get("verify") === "1") {
+  showMessage(
+    "Conta criada! Verifique seu e-mail antes de entrar (confira também o spam).",
+    "success"
+  );
 }
 
 // translate firebase auth error codes to user messages
@@ -65,10 +76,34 @@ function translateFirebaseError(code) {
   }
 }
 
+// shows the "email not verified" message with a resend button
+function showUnverifiedMessage(user) {
+  let messageEl = document.getElementById("form-message");
+
+  if (!messageEl) {
+    messageEl = document.createElement("span");
+    messageEl.id = "form-message";
+    form.insertBefore(messageEl, loginButton);
+  }
+
+  messageEl.className = "form-message error";
+  messageEl.innerHTML = `
+    Você precisa verificar seu e-mail antes de entrar.
+    <button type="button" id="resend-button" class="resend-link">Reenviar e-mail</button>
+  `;
+
+  document.getElementById("resend-button").addEventListener("click", () => {
+    sendEmailVerification(user).then(() => {
+      messageEl.className = "form-message success";
+      messageEl.textContent = "E-mail reenviado! Confira sua caixa de entrada.";
+    });
+  });
+}
+
 // real login via firebase auth
 form.addEventListener("submit", (event) => {
   event.preventDefault();
-  clearError();
+  clearMessage();
 
   const email = emailInput.value.trim();
   const password = passwordInput.value;
@@ -77,19 +112,28 @@ form.addEventListener("submit", (event) => {
   loginButton.disabled = true;
   loginButton.textContent = "Entrando...";
 
-  /* remember me controls how long the session persists
-  if is checked, survives closing the browser but if is unchecked it ends when the tab or browser is closed */
+  // remember me controls how long the session persists, if is checked, the session persists even after closing the browser, if unchecked, it ends when the tab/browser closes
   const persistence = rememberMe
     ? browserLocalPersistence
     : browserSessionPersistence;
 
   setPersistence(auth, persistence)
     .then(() => signInWithEmailAndPassword(auth, email, password))
-    .then(() => {
+    .then((userCredential) => {
+      if (!userCredential.user.emailVerified) {
+        // blocks access and offers to resend the verification email
+        
+        signOut(auth);
+        showUnverifiedMessage(userCredential.user);
+        return;
+      }
+
       window.location.href = "../dashboard/dashboard.html";
     })
     .catch((error) => {
-      showError(translateFirebaseError(error.code));
+      showMessage(translateFirebaseError(error.code), "error");
+    })
+    .finally(() => {
       loginButton.disabled = false;
       loginButton.textContent = "Entrar na central";
     });

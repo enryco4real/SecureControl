@@ -470,8 +470,27 @@ body {
   color: #dc2626;
 }
 
+.form-message.success {
+    display: block;
+    background-color: rgba(22, 163, 74, 0.08);
+    color: #16a34a;
+}
+
 .login-button:disabled {
   opacity: 0.7;
   cursor: not-allowed;
   transform: none !important;
+}
+
+.resend-link {
+    display: block;
+    margin-top: 6px;
+    padding: 0;
+    border: none;
+    background: transparent;
+    color: inherit;
+    font-size: 12px;
+    font-weight: 700;
+    text-decoration: underline;
+    cursor: pointer;
 }

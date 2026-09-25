@@ -1,6 +1,7 @@
 import { auth, db } from "../shared/firebaseConfig.js";
 import {
   createUserWithEmailAndPassword,
+  sendEmailVerification,
 } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-auth.js";
 import {
   doc,
@@ -225,10 +226,15 @@ form.addEventListener("submit", (event) => {
   createUserWithEmailAndPassword(auth, data.email, password.value)
     .then((userCredential) => {
       const uid = userCredential.user.uid;
-      return setDoc(doc(db, "users", uid), data);
+      
+      // save extra data and send verification email at the same time
+      return Promise.all([
+        setDoc(doc(db, "users", uid), data),
+        sendEmailVerification(userCredential.user),
+      ]);
     })
     .then(() => {
-      window.location.href = "../login/login.html";
+      window.location.href = "../login/login.html?verify=1";
     })
     .catch((error) => {
       showError(translateFirebaseError(error.code));
