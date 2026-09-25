@@ -2,6 +2,7 @@ import { auth, db } from "../shared/firebaseConfig.js";
 import {
   createUserWithEmailAndPassword,
   sendEmailVerification,
+  signInWithEmailAndPassword,
 } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-auth.js";
 import {
   doc,
@@ -79,7 +80,6 @@ cnpjInput.addEventListener("input", () => {
 
   cnpjInput.value = value;
 });
-
 
 // format the ZIP code in the pattern 00000-000 while the user types
 const cepInput = document.getElementById("cep");
@@ -200,6 +200,11 @@ form.addEventListener("submit", (event) => {
     return;
   }
 
+  if (getStrength(password.value) < 3) {
+    showError("A senha é muito fraca. Use letras maiúsculas, números ou símbolos.");
+    return;
+  }
+
   const data = {
     firstName: document.getElementById("first-name").value.trim(),
     lastName: document.getElementById("last-name").value.trim(),
@@ -226,7 +231,7 @@ form.addEventListener("submit", (event) => {
   createUserWithEmailAndPassword(auth, data.email, password.value)
     .then((userCredential) => {
       const uid = userCredential.user.uid;
-      
+
       // save extra data and send verification email at the same time
       return Promise.all([
         setDoc(doc(db, "users", uid), data),
@@ -237,6 +242,34 @@ form.addEventListener("submit", (event) => {
       window.location.href = "../login/login.html?verify=1";
     })
     .catch((error) => {
+      if (error.code === "auth/email-already-in-use") {
+        // maybe its the same person retrying after abandoning verification trying signing in with what they just typed to check
+
+        signInWithEmailAndPassword(auth, data.email, password.value)
+          .then((userCredential) => {
+            if (!userCredential.user.emailVerified) {
+              return sendEmailVerification(userCredential.user).then(() => {
+                showError(
+                  "Esta conta já existe mas não foi verificada. Reenviamos o e-mail de verificação."
+                );
+              });
+            }
+
+            showError("Este e-mail já possui uma conta verificada. Tente entrar.");
+          })
+          .catch(() => {
+            // wrong password (or account belongs to someone else)
+              
+            showError("Este e-mail já está cadastrado.");
+          })
+          .finally(() => {
+            signupButton.disabled = false;
+            signupButton.textContent = "Criar conta";
+          });
+
+        return;
+      }
+
       showError(translateFirebaseError(error.code));
       signupButton.disabled = false;
       signupButton.textContent = "Criar conta";

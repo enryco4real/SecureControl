@@ -55,7 +55,7 @@ function clearMessage() {
 const params = new URLSearchParams(window.location.search);
 if (params.get("verify") === "1") {
   showMessage(
-    "Conta criada! Verifique seu e-mail antes de entrar (confira também o spam).",
+    "Quase lá! Verifique seu e-mail antes de entrar (confira a caixa de spam).",
     "success"
   );
 }
